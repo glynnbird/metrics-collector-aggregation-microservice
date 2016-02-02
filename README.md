@@ -8,9 +8,10 @@ This is a microservice that subscribes to a queue or pubsub channel hosted on
 
 and aggregates the data using one of the built-in functions:
 
-* count
-* sum
-* stats
+* count - count incoming data messages
+* sum - sum a single element of the message
+* stats - calculate stats on a single element of the message
+* countdistinct - count numbers of distinct values of a single element of the message
 
 This service is designed to be paired with the *Metrics Collector Microservice* which sends web traffic data to a Redis, RabbitMQ or Kafka queue or pubsub channel. Other Microservices can listen to the data arriving on those channels, services such as the *Metrics Collector Storage Microservice* which can store data in Cloudant, MongoDB or ElasticSearch. 
 
@@ -47,6 +48,7 @@ e.g.
 * `GET /configure?mode=count`
 * `GET /configure?mode=sum&selector=a`
 * `GET /configure?mode=stats&selector=c`
+* `GET /configure?mode=countdistinct&selector=d`
 
 Reply:
 
@@ -68,7 +70,8 @@ e.g. `GET /query`
 
 Reply:
 
-```
+```js
+// stats
 {
 	"ok": true,
 	"err": null,
@@ -80,6 +83,32 @@ Reply:
 		"sumsqr": 140920641
 	}
 }
+```
+
+or
+
+```js
+// countdistinct
+{
+	"ok": true,
+	"err": null,
+	"data": {
+		"rat": 75,
+		"gerbil": 58,
+		"dog": 65,
+		"robin": 61,
+		"squirrel": 70,
+		"donkey": 54,
+		"cat": 74,
+		"wolf": 65,
+		"crab": 55,
+		"cow": 64,
+		"ant": 67,
+		"fox": 68,
+		"chicken": 51
+	}
+}
+
 ```
 
 ### GET /reset
@@ -94,7 +123,7 @@ Reply:
 
 Reply:
 
-```
+```js
 {
 	"ok": true
 }
