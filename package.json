@@ -1,0 +1,29 @@
+{
+  "name": "cds-labs-metrics-collector-aggregation-microservice",
+  "version": "0.1.0",
+  "description": "Consumer microservice counts, averages and sums data",
+  "main": "app.js",
+  "scripts": {},
+  "repository": "https://github.com/glynnbird/metrics-collector-aggregation-microservice",
+  "keywords": [
+    "tracking",
+    "microservice",
+    "analytics",
+    "music"
+  ],
+  "dependencies": {
+    "async": "^1.5.1",
+    "cf-deployment-tracker-client": "0.0.8",
+    "cfenv": "^1.0.3",
+    "express": "^4.13.4",
+    "message-hub-rest": "^1.0.3",
+    "node-redis": "^0.1.7",
+    "rabbit.js": "^0.4.4"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "author": "glynn.bird@uk.ibm.com",
+  "license": "IBM",
+  "readmeFilename": "README.md"
+}
