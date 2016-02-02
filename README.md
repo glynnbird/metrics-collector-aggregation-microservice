@@ -12,6 +12,7 @@ and aggregates the data using one of the built-in functions:
 * sum - sum a single element of the message
 * stats - calculate stats on a single element of the message
 * countdistinct - count numbers of distinct values of a single element of the message
+* customstats - calculate stats on a value returned by a supplied function
 
 This service is designed to be paired with the *Metrics Collector Microservice* which sends web traffic data to a Redis, RabbitMQ or Kafka queue or pubsub channel. Other Microservices can listen to the data arriving on those channels, services such as the *Metrics Collector Storage Microservice* which can store data in Cloudant, MongoDB or ElasticSearch. 
 
@@ -49,6 +50,7 @@ e.g.
 * `GET /configure?mode=sum&selector=a`
 * `GET /configure?mode=stats&selector=c`
 * `GET /configure?mode=countdistinct&selector=d`
+* `GET /configure?mode=customstats&selector=function(doc)%7B%20return%20(doc.c>20000)%3F%20doc.c%20:%20null%7D`
 
 Reply:
 
@@ -57,6 +59,16 @@ Reply:
 	"ok": true,
 	"mode": "stats",
 	"selector": "c"
+}
+```
+
+or
+
+```
+{
+	"ok": true,
+	"mode": "customstats",
+	"selector": "function(doc){ return (doc.c>20000)? doc.c : null}"
 }
 ```
 
