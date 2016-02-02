@@ -15,7 +15,7 @@ var push = function(obj, callback) {
     }
     callback(null);
   } else {
-    console.error("No data found for selector -",selector);
+    console.error("No data found for selector -", selector);
     callback("Invalid selector");
   }
 };
@@ -26,7 +26,10 @@ var query = function(callback) {
 
 var initialise = function(s, callback) {
   selector = null;
-  selector = eval("(" + s + ")");
+  try {
+    selector = eval("(" + s + ")");
+  } catch (e) {    
+  }
   if (typeof selector == 'function') {
     reset(callback);
   } else {
